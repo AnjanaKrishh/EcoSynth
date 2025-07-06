@@ -1,0 +1,200 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Dashboard - Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Chatbot styles */
+    .chat-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 40px;
+      background-color: #10b981;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+      z-index: 50;
+    }
+
+    .chat-window {
+      position: fixed;
+      bottom: 80px;
+      right: 40px;
+      width: 320px;
+      max-height: 420px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-sizing: border-box;
+      z-index: 50;
+    }
+
+    .chat-header {
+      background: #10b981;
+      color: white;
+      padding: 10px;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      font-weight: 600;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+    }
+
+    .chat-input {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 8px;
+      border-top: 1px solid #ccc;
+      background-color: #f9f9f9;
+      box-sizing: border-box;
+    }
+
+    .chat-input input {
+      flex: 1;
+      min-width: 0;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .chat-input button {
+      white-space: nowrap;
+      padding: 8px 16px;
+      background-color: #10b981;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .bot-message {
+      background: #f3f4f6;
+      padding: 6px;
+      margin-bottom: 6px;
+      border-radius: 6px;
+    }
+
+    .user-message {
+      background: #d1fae5;
+      padding: 6px;
+      margin-bottom: 6px;
+      border-radius: 6px;
+      text-align: right;
+    }
+
+    @media (max-width: 400px) {
+      .chat-window {
+        width: 90vw;
+        right: 5vw;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <!-- Top Header Bar -->
+  <header class="bg-green-700 text-white py-4 px-6 shadow flex justify-between items-center">
+    <h1 class="text-2xl font-bold">Home</h1>
+    <a href="{% url 'ulogin' %}" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition">Logout</a>
+  </header>
+
+  <!-- Profile Bar -->
+  <section class="bg-white shadow-sm py-6 border-b">
+    <div class="max-w-6xl mx-auto px-4 flex items-center justify-between flex-wrap gap-4">
+      <div class="flex flex-col items-center gap-2">
+        <img src="{{ user.profile_pic.url }}" alt="Profile" class="w-16 h-16 object-cover rounded-full border-2 border-green-600 shadow">
+        <h2 class="text-lg font-semibold text-gray-800">{{ user.name }}</h2>
+        <a href="{% url 'ueditprofile' %}" class="mt-1 bg-red-500 hover:bg-red-600 text-white px-4 py-1 text-sm rounded-full transition">
+          Edit 
+        </a>
+      </div>
+
+      <!-- Coin Points Display -->
+      <div class="flex items-center gap-2 text-base font-semibold">
+        <i class="fas fa-coins text-3xl drop-shadow-sm" style="color: #FFD700;"></i>
+        <span class="text-yellow-700">{{ user.points|default:0 }} Points</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Functional Cards Section -->
+  <section class="max-w-6xl mx-auto mt-14 px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+ <!-- Pickup -->
+<a href="{% url 'pickup' %}" class="bg-white text-center p-8 rounded-2xl shadow hover:shadow-lg transition hover:-translate-y-1">
+  <i class="fas fa-truck-pickup text-4xl text-green-700 mb-4"></i>
+  <h3 class="text-xl font-bold text-green-700">Pickup</h3>
+  <p class="text-sm text-gray-600 mt-2">Schedule e-waste pickup.</p>
+</a>
+
+
+    <!-- Repair -->
+    <a href="{% url 'repair' %}" class="bg-white text-center p-8 rounded-2xl shadow hover:shadow-lg transition hover:-translate-y-1">
+      <i class="fas fa-tools text-4xl text-green-700 mb-4"></i>
+      <h3 class="text-xl font-bold text-green-700">Repair</h3>
+      <p class="text-sm text-gray-600 mt-2">Request device repair service.</p>
+    </a>
+
+    <!-- Sell -->
+    <a href="{% url 'sell' %}" class="bg-white text-center p-8 rounded-2xl shadow hover:shadow-lg transition hover:-translate-y-1">
+      <i class="fas fa-hand-holding-dollar text-4xl text-green-700 mb-4"></i>
+      <h3 class="text-xl font-bold text-green-700">Sell</h3>
+      <p class="text-sm text-gray-600 mt-2">Sell second-hand electronics.</p>
+    </a>
+
+    <!-- Buy -->
+    <a href="{% url 'buy' %}" class="bg-white text-center p-8 rounded-2xl shadow hover:shadow-lg transition hover:-translate-y-1">
+      <i class="fas fa-cart-shopping text-4xl text-green-700 mb-4"></i>
+      <h3 class="text-xl font-bold text-green-700">Buy</h3>
+      <p class="text-sm text-gray-600 mt-2">Buy refurbished products.</p>
+    </a>
+  </section>
+
+  <!-- Feedback Button -->
+  <div class="fixed bottom-6 left-6">
+    <a href="{% url 'feedback' %}" class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-full shadow-lg transition text-sm font-medium">
+      💬 Give Feedback
+    </a>
+  </div>
+
+  <!-- Chatbot Mount Point -->
+  <div id="chatbot"></div>
+
+  <!-- Footer -->
+  <footer class="mt-auto text-center text-sm text-gray-500 py-4">
+    &copy; 2025 EcoSynth. All rights reserved.
+  </footer>
+<script src="{% static 'js/chatbotData.js' %}"></script>
+<script src="{% static 'js/ChatBot.js' %}"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    initChatBot();
+  });
+</script>
+
+
+</body>
+</html>

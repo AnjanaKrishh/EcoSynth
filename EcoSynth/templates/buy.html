@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Buy Products</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white py-4 px-6 shadow flex justify-between items-center">
+    <h1 class="text-2xl font-bold">Product Listings</h1>
+    <a href="{% url 'udashboard' %}" class="bg-white text-green-700 px-4 py-2 rounded-lg hover:bg-gray-100 transition font-semibold">
+      ← Back to Dashboard
+    </a>
+  </header>
+
+  <!-- Product Grid -->
+  <section class="max-w-7xl mx-auto py-10 px-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+
+      {% for product in products %}
+      <div class="bg-white rounded-xl shadow hover:shadow-lg transition">
+        <img src="{{ product.image.url }}" alt="{{ product.device_name }}" class="w-full h-48 object-cover rounded-t-xl">
+        <div class="p-4">
+          <h2 class="text-lg font-semibold text-green-700">{{ product.device_name }}</h2>
+          <p class="text-sm text-gray-600 mt-1"><i class="fas fa-user text-green-600 mr-1"></i> {{ product.user.name }}</p>
+          <p class="text-sm text-gray-600 mt-1"><i class="fas fa-map-marker-alt text-red-500 mr-1"></i> {{ product.address }}</p>
+          <p class="text-sm text-gray-600 mt-1"><i class="fas fa-phone text-blue-500 mr-1"></i> {{ product.phone }}</p>
+          <p class="text-xs text-gray-400 mt-2">Posted on {{ product.posted_at|date:"M d, Y" }}</p>
+        </div>
+      </div>
+      {% empty %}
+      <p class="text-center text-gray-500 col-span-full">No products available right now.</p>
+      {% endfor %}
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-500 py-4 border-t mt-auto">
+    &copy; 2025 EcoSynth Marketplace. All rights reserved.
+  </footer>
+
+</body>
+</html>
