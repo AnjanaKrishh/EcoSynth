@@ -35,9 +35,10 @@
     <form method="post" class="space-y-6">
       {% csrf_token %}
       <div>
-        <label for="waste_type" class="block font-semibold text-green-800 mb-2">Select Waste Type</label>
-        <select name="waste_type" id="waste_type" required
-                class="w-full border border-green-300 rounded-lg p-3 bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-400">
+        <label for="waste_type" class="block font-semibold text-green-800 mb-2">Select Waste Type(s)</label>
+        <select name="waste_type" id="waste_type" multiple required
+                class="w-full border border-green-300 rounded-lg p-3 bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-400"
+                size="6">
           {% for type in waste_types %}
             <option value="{{ type }}">{{ type }}</option>
           {% endfor %}
@@ -47,7 +48,8 @@
       <div>
         <label for="address" class="block font-semibold text-green-800 mb-2">Pickup Address</label>
         <textarea name="address" id="address" rows="4" required
-                  class="w-full border border-green-300 rounded-lg p-3 bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-400"></textarea>
+                  class="w-full border border-green-300 rounded-lg p-3 bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-400"
+                  placeholder="Enter your pickup address here..."></textarea>
       </div>
 
       <button type="submit"
@@ -63,7 +65,7 @@
     <ul class="space-y-3">
       {% for item in pickup_history %}
         <li class="bg-green-50 p-3 rounded-lg border-l-4 border-green-500 shadow-sm">
-          <strong>{{ item.waste_type }}</strong> - {{ item.status }} <br>
+          <strong>{{ item.waste_type }}</strong> - {{ item.status }}<br>
           <span class="text-sm text-gray-600">{{ item.requested_at|date:"M d, Y H:i" }}</span>
         </li>
       {% empty %}

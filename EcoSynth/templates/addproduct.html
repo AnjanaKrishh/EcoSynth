@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecosynth Admin - Add Product</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+        .animate-scale-hover {
+            transition: transform 0.3s ease;
+        }
+        .animate-scale-hover:hover {
+            transform: scale(1.05);
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .bg-gradient-eco {
+            background: linear-gradient(135deg, #66BB6A 0%, #2E7D32 100%);
+        }
+        .sidebar {
+            transition: transform 0.3s ease-in-out;
+        }
+        .sidebar-hidden {
+            transform: translateX(-100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-200">
+    <!-- Sidebar -->
+    <div class="fixed inset-y-0 left-0 w-64 bg-gradient-eco text-white sidebar" id="sidebar">
+        <div class="p-6">
+            <h1 class="text-2xl font-bold flex items-center gap-2">
+                <i class="fas fa-leaf"></i> Ecosynth Admin
+            </h1>
+        </div>
+        <nav class="mt-4">
+            <a href="{% url 'adminhome' %}" class="block py-2 px-6 hover:bg-green-700 transition duration-300 flex items-center gap-2">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a href="#" class="block py-2 px-6 hover:bg-green-700 transition duration-300 flex items-center gap-2">
+                <i class="fas fa-recycle"></i> Waste Management
+            </a>
+            <a href="{% url 'addproduct' %}" class="block py-2 px-6 bg-green-700 transition duration-300 flex items-center gap-2">
+                <i class="fas fa-box-open"></i> Add Product
+            </a>
+            <a href="#" class="block py-2 px-6 hover:bg-green-700 transition duration-300 flex items-center gap-2">
+                <i class="fas fa-chart-bar"></i> Reports
+            </a>
+            <a href="#" class="block py-2 px-6 hover:bg-green-700 transition duration-300 flex items-center gap-2">
+                <i class="fas fa-users"></i> Users
+            </a>
+            <a href="#" class="block py-2 px-6 hover:bg-green-700 transition duration-300 flex items-center gap-2">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="ml-64 p-6">
+        <!-- Header -->
+        <header class="bg-white shadow rounded-lg p-4 mb-6 flex justify-between items-center animate-fade-in">
+            <h2 class="text-2xl font-semibold text-gray-800">Add New Product</h2>
+            <button id="toggleSidebar" class="text-gray-600 hover:text-green-600">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </header>
+
+        <!-- Add Product Form -->
+        <div class="max-w-lg mx-auto bg-white p-8 rounded-xl shadow-xl animate-fade-in">
+            <form method="POST" action="{% url 'addproduct' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-5">
+                    <label for="product_name" class="block text-gray-700 font-semibold mb-2 flex items-center gap-2">
+                        <i class="fas fa-box text-green-600"></i> Product Name
+                    </label>
+                    <input type="text" id="product_name" name="product_name" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-300" placeholder="Enter product name" required>
+                </div>
+                <div class="mb-5">
+                    <label for="product_description" class="block text-gray-700 font-semibold mb-2 flex items-center gap-2">
+                        <i class="fas fa-align-left text-green-600"></i> Description
+                    </label>
+                    <textarea id="product_description" name="product_description" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-300" placeholder="Enter product description" rows="4"></textarea>
+                </div>
+                <div class="mb-5">
+                    <label for="product_price" class="block text-gray-700 font-semibold mb-2 flex items-center gap-2">
+                        <i class="fas fa-dollar-sign text-green-600"></i> Price
+                    </label>
+                    <input type="number" id="product_price" name="product_price" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-300" placeholder="Enter price" min="0" required>
+                </div>
+                <div class="mb-5">
+                    <label for="product_category" class="block text-gray-700 font-semibold mb-2 flex items-center gap-2">
+                        <i class="fas fa-tag text-green-600"></i> Category
+                    </label>
+                    <input type="text" id="product_category" name="product_category" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-300" placeholder="Enter category (e.g., Recyclable, Biodegradable)">
+                </div>
+                <div class="mb-6">
+                    <label for="product_image" class="block text-gray-700 font-semibold mb-2 flex items-center gap-2">
+                        <i class="fas fa-image text-green-600"></i> Product Image
+                    </label>
+                    <input type="file" id="product_image" name="product_image" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-300" accept="image/*">
+                </div>
+                <button type="submit" class="w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 transition duration-300 flex items-center justify-center gap-2 animate-scale-hover">
+                    <i class="fas fa-plus-circle"></i> Add Product
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="ml-64 bg-gray-50 p-4 text-center text-gray-500 text-sm">
+        © 2025 Ecosynth. All rights reserved.
+    </footer>
+
+    <script>
+        const toggleSidebar = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+        toggleSidebar.addEventListener('click', () => {
+            sidebar.classList.toggle('sidebar-hidden');
+        });
+    </script>
+</body>
+</html>

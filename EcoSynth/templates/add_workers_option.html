@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Worker Type - Ecosynth Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center px-4">
+
+    <div class="bg-white rounded-xl shadow-xl p-10 w-full max-w-xl">
+        <h1 class="text-3xl font-bold text-green-700 mb-8 text-center">
+            <i class="fas fa-users-cog mr-2"></i> Add Worker
+        </h1>
+
+        <p class="text-gray-600 text-center mb-6">Choose a worker type to add to the system</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-center">
+            <!-- Pickupman Button -->
+            <a href="{% url 'add_pickupman' %}" class="bg-green-600 hover:bg-green-700 text-white py-4 rounded-xl shadow transition duration-300">
+                <i class="fas fa-truck-pickup text-2xl mb-2 block"></i>
+                <span class="font-semibold">Add Pickupman</span>
+            </a>
+
+            <!-- Repairman Button -->
+            <a href="{% url 'add_repairman' %}" class="bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl shadow transition duration-300">
+                <i class="fas fa-tools text-2xl mb-2 block"></i>
+                <span class="font-semibold">Add Repairman</span>
+            </a>
+
+            <!-- Deliveryman Button -->
+            <a href="{% url 'add_deliveryman' %}" class="bg-yellow-500 hover:bg-yellow-600 text-white py-4 rounded-xl shadow transition duration-300">
+                <i class="fas fa-motorcycle text-2xl mb-2 block"></i>
+                <span class="font-semibold">Add Deliveryman</span>
+            </a>
+        </div>
+
+        <!-- Back to Dashboard -->
+        <div class="mt-10 text-center">
+            <a href="{% url 'adminhome' %}" class="text-green-600 hover:underline">
+                ← Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

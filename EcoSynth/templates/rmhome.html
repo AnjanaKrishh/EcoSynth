@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repairman Dashboard - Waste Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-image: linear-gradient(to bottom, #e0f7e9, #f0f4f8);
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            border: 2px solid #1b5e20; /* Dark green outline */
+        }
+        h2 {
+            text-align: center;
+            color: #2e7d32;
+            margin-bottom: 20px;
+        }
+        .welcome {
+            text-align: center;
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .dashboard {
+            margin-bottom: 30px;
+        }
+        .dashboard h3 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+        .dashboard p {
+            color: #333;
+            font-size: 16px;
+        }
+        .logout {
+            text-align: center;
+        }
+        .logout a {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #4caf50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .logout a:hover {
+            background-color: #388e3c;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo img {
+            width: 80px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="/static/images/waste-management-logo.png" alt="Waste Management Logo">
+        </div>
+        <h2>Repairman Dashboard</h2>
+        <div class="welcome">
+            {% if request.session.email %}
+                <p>Welcome, {{ request.session.email }}!</p>
+            {% else %}
+                <p>Welcome, Repairman!</p>
+            {% endif %}
+        </div>
+        <div class="dashboard">
+            <h3>Your Repair Tasks</h3>
+            <p>This is your dashboard. Check your assigned repair tasks for waste management equipment here.</p>
+            <!-- Placeholder for future repair task list or dynamic content -->
+        </div>
+        <div class="logout">
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
+</body>
+</html>

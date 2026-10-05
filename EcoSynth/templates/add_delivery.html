@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Request Delivery</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f2f2f2;
+            padding: 40px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            background: white;
+            padding: 30px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        textarea {
+            height: 80px;
+            resize: vertical;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Submit Delivery Request</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="device_type">Device Type</label>
+            <input type="text" name="device_type" id="device_type" required>
+
+            <label for="phone">Phone</label>
+            <input type="tel" name="phone" id="phone" required>
+
+            <label for="address">Address</label>
+            <textarea name="address" id="address" required></textarea>
+
+            <label for="description">Description</label>
+            <textarea name="description" id="description" required></textarea>
+
+            {% comment %} <label for="assigned_to">Assign to (Optional)</label>
+           <select name="assigned_to" id="assigned_to">
+            <option value="">-- Select a worker --</option>
+            {% for worker in workers %}
+                <option value="{{ worker.id }}">{{ worker.name }}</option>
+            {% endfor %}
+        </select> {% endcomment %}
+
+
+            <button type="submit" class="btn">Submit Request</button>
+        </form>
+    </div>
+</body>
+</html>

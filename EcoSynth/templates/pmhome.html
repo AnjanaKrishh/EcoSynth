@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pickupman Dashboard - Waste Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background-image: linear-gradient(to bottom, #e0f7e9, #f0f4f8);
+    }
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 700px;
+      border: 2px solid #1b5e20;
+    }
+    h2 {
+      text-align: center;
+      color: #2e7d32;
+      margin-bottom: 20px;
+    }
+    .welcome {
+      text-align: center;
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 30px;
+    }
+    .dashboard h3 {
+      color: #2e7d32;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    .task {
+      background-color: #e8f5e9;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border-left: 4px solid #2e7d32;
+    }
+    .task p {
+      margin: 4px 0;
+      font-size: 15px;
+    }
+    .task form {
+      margin-top: 10px;
+    }
+    .task button {
+      padding: 6px 12px;
+      background-color: #388e3c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .completed-label {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 16px;
+      color: green;
+      font-weight: bold;
+    }
+    .tick-icon {
+      font-size: 20px;
+      margin-right: 6px;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .logo img {
+      width: 80px;
+      height: auto;
+    }
+    .no-tasks {
+      text-align: center;
+      color: #777;
+      font-style: italic;
+    }
+
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .checkbox-btn {
+      display: flex;
+      align-items: center;
+      background-color: #c8e6c9;
+      padding: 6px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      border: 1px solid #2e7d32;
+    }
+
+    .checkbox-btn input {
+      margin-right: 6px;
+      cursor: pointer;
+    }
+
+    .add-points-btn {
+      margin-top: 12px;
+      background-color: #1e88e5;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="/static/images/waste-management-logo.png" alt="Waste Management Logo">
+    </div>
+
+    <h2>Pickupman Dashboard</h2>
+
+    <div class="welcome">
+      {% if request.session.email %}
+        <p>Welcome, {{ request.session.email }}!</p>
+      {% else %}
+        <p>Welcome, Pickupman!</p>
+      {% endif %}
+    </div>
+
+    <div class="dashboard">
+      <h3>Your Assigned Pickups</h3>
+      {% if assigned_requests %}
+        {% for req in assigned_requests %}
+          <div class="task">
+            <p><strong>User:</strong> {{ req.user.name }}</p>
+            <p><strong>Waste Type:</strong> {{ req.waste_type }}</p>
+            <p><strong>Address:</strong> {{ req.address }}</p>
+            <p><strong>Requested At:</strong> {{ req.requested_at|date:"M d, Y H:i" }}</p>
+            <p><strong>Status:</strong> {{ req.status }}</p>
+
+            {% if req.status != 'Completed' %}
+              <!-- Mark as Done Button -->
+              <form action="{% url 'pickup_done' req.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit">Mark as Done</button>
+              </form>
+            {% else %}
+              <!-- Show Tick and Add Points -->
+              <div class="completed-label">
+                <span class="tick-icon">✅</span>Completed
+              </div>
+
+              <!-- Add Points Form -->
+              <form action="{% url 'add_points' req.id %}" method="POST">
+                {% csrf_token %}
+                <p><strong>Select Waste Categories:</strong></p>
+                <div class="checkbox-group">
+                  <label class="checkbox-btn"><input type="checkbox" name="waste_category" value="Plastic">Plastic</label>
+                  <label class="checkbox-btn"><input type="checkbox" name="waste_category" value="Metal">Metal</label>
+                  <label class="checkbox-btn"><input type="checkbox" name="waste_category" value="Paper and Cardboard">Paper & Cardboard</label>
+                  <label class="checkbox-btn"><input type="checkbox" name="waste_category" value="Electronic">Electronic</label>
+                  <label class="checkbox-btn"><input type="checkbox" name="waste_category" value="Glass">Glass</label>
+                  <label class="checkbox-btn"><input type="checkbox" name="waste_category" value="Others">Others</label>
+                </div>
+                <button type="submit" class="add-points-btn">+ Points</button>
+              </form>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="no-tasks">No pickups assigned to you yet.</p>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

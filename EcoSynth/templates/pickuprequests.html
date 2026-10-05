@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pickup Requests</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    .select-style {
+      padding: 0.25rem 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.375rem;
+    }
+    .btn-assign {
+      background-color: #16a34a;
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+    }
+    .btn-assign:hover {
+      background-color: #15803d;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white py-4 px-6 shadow">
+    <h1 class="text-2xl font-bold">All Pickup Requests</h1>
+  </header>
+
+  <!-- Content -->
+  <div class="max-w-7xl mx-auto mt-8 px-4">
+    <div class="bg-white p-6 rounded-xl shadow-md">
+      <h2 class="text-xl font-semibold text-green-800 mb-6">Pickup Request List</h2>
+
+      <div class="overflow-x-auto">
+        <table class="min-w-full table-auto text-sm text-left border border-gray-300 rounded-lg">
+          <thead class="bg-green-100 text-green-800 font-semibold">
+            <tr>
+              <th class="px-4 py-2 border">User</th>
+              <th class="px-4 py-2 border">Waste Type(s)</th>
+              <th class="px-4 py-2 border">Address</th>
+              <th class="px-4 py-2 border">Requested At</th>
+              <th class="px-4 py-2 border">Status</th>
+              <th class="px-4 py-2 border">Assigned To</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for request in pickup_requests %}
+              <tr class="border-b hover:bg-green-50 transition">
+                <td class="px-4 py-2 border">{{ request.user.name }}</td>
+                <td class="px-4 py-2 border">{{ request.waste_type }}</td>
+                <td class="px-4 py-2 border">{{ request.address }}</td>
+                <td class="px-4 py-2 border">{{ request.requested_at|date:"M d, Y H:i" }}</td>
+                <td class="px-4 py-2 border">
+                  <span class="px-2 py-1 rounded-full 
+                      {% if request.status == 'Pending' %} bg-yellow-200 text-yellow-800 
+                      {% elif request.status == 'Completed' %} bg-green-200 text-green-800 
+                      {% elif request.status == 'Assigned' %} bg-blue-200 text-blue-800 
+                      {% else %} bg-gray-200 text-gray-800 {% endif %}">
+                    {{ request.status }}
+                  </span>
+                </td>
+                <td class="px-4 py-2 border">
+                  {% if request.assigned_to %}
+                    <span class="text-green-700 font-medium">{{ request.assigned_to.name }}</span>
+                  {% else %}
+                    <form action="{% url 'assign_pickupman' request.id %}" method="POST" class="flex items-center space-x-2">
+                      {% csrf_token %}
+                      <select name="pickupman_id" class="select-style text-sm w-40" required>
+                        <option value="">Select</option>
+                        {% for man in pickupmen %}
+                          <option value="{{ man.id }}">{{ man.name }}</option>
+                        {% endfor %}
+                      </select>
+                      <button type="submit" class="btn-assign">Assign</button>
+                    </form>
+                  {% endif %}
+                </td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="6" class="text-center py-4 text-gray-500 italic">No pickup requests found.</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

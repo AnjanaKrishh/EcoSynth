@@ -141,37 +141,45 @@
     </div>
   </section>
 
-  <!-- Functional Cards Section -->
-  <section class="max-w-6xl mx-auto mt-14 px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
- <!-- Pickup -->
-<a href="{% url 'pickup' %}" class="bg-white text-center p-8 rounded-2xl shadow hover:shadow-lg transition hover:-translate-y-1">
-  <i class="fas fa-truck-pickup text-4xl text-green-700 mb-4"></i>
-  <h3 class="text-xl font-bold text-green-700">Pickup</h3>
-  <p class="text-sm text-gray-600 mt-2">Schedule e-waste pickup.</p>
-</a>
+ <!-- Functional Cards Section -->
+<section class="max-w-6xl mx-auto mt-14 px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
+  <!-- Pickup -->
+  <a href="{% url 'pickup' %}" class="bg-white text-center p-8 rounded-2xl shadow hover:shadow-lg transition hover:-translate-y-1">
+    <i class="fas fa-truck-pickup text-4xl text-green-700 mb-4"></i>
+    <h3 class="text-xl font-bold text-green-700">Pickup</h3>
+    <p class="text-sm text-gray-600 mt-2">Schedule e-waste pickup.</p>
+  </a>
 
-    <!-- Repair -->
-    <a href="{% url 'repair' %}" class="bg-white text-center p-8 rounded-2xl shadow hover:shadow-lg transition hover:-translate-y-1">
-      <i class="fas fa-tools text-4xl text-green-700 mb-4"></i>
-      <h3 class="text-xl font-bold text-green-700">Repair</h3>
-      <p class="text-sm text-gray-600 mt-2">Request device repair service.</p>
-    </a>
+  <!-- Repair -->
+  <a href="{% url 'repair' %}" class="bg-white text-center p-8 rounded-2xl shadow hover:shadow-lg transition hover:-translate-y-1">
+    <i class="fas fa-tools text-4xl text-green-700 mb-4"></i>
+    <h3 class="text-xl font-bold text-green-700">Repair</h3>
+    <p class="text-sm text-gray-600 mt-2">Request device repair service.</p>
+  </a>
 
-    <!-- Sell -->
-    <a href="{% url 'sell' %}" class="bg-white text-center p-8 rounded-2xl shadow hover:shadow-lg transition hover:-translate-y-1">
-      <i class="fas fa-hand-holding-dollar text-4xl text-green-700 mb-4"></i>
-      <h3 class="text-xl font-bold text-green-700">Sell</h3>
-      <p class="text-sm text-gray-600 mt-2">Sell second-hand electronics.</p>
-    </a>
+  <!-- Sell -->
+  <a href="{% url 'sell' %}" class="bg-white text-center p-8 rounded-2xl shadow hover:shadow-lg transition hover:-translate-y-1">
+    <i class="fas fa-hand-holding-dollar text-4xl text-green-700 mb-4"></i>
+    <h3 class="text-xl font-bold text-green-700">Sell</h3>
+    <p class="text-sm text-gray-600 mt-2">Sell second-hand electronics.</p>
+  </a>
 
-    <!-- Buy -->
-    <a href="{% url 'buy' %}" class="bg-white text-center p-8 rounded-2xl shadow hover:shadow-lg transition hover:-translate-y-1">
-      <i class="fas fa-cart-shopping text-4xl text-green-700 mb-4"></i>
-      <h3 class="text-xl font-bold text-green-700">Buy</h3>
-      <p class="text-sm text-gray-600 mt-2">Buy refurbished products.</p>
-    </a>
-  </section>
+  <!-- Buy -->
+  <a href="{% url 'buy' %}" class="bg-white text-center p-8 rounded-2xl shadow hover:shadow-lg transition hover:-translate-y-1">
+    <i class="fas fa-cart-shopping text-4xl text-green-700 mb-4"></i>
+    <h3 class="text-xl font-bold text-green-700">Buy</h3>
+    <p class="text-sm text-gray-600 mt-2">Second hand.</p>
+  </a>
+
+  <!-- Buy Eco Products -->
+  <a href="{% url 'product_list' %}" class="bg-white text-center p-8 rounded-2xl shadow hover:shadow-lg transition hover:-translate-y-1">
+    <i class="fas fa-leaf text-4xl text-green-700 mb-4"></i>
+    <h3 class="text-xl font-bold text-green-700">Buy Eco Products</h3>
+    <p class="text-sm text-gray-600 mt-2">Buy Eco-Friendly Products.</p>
+  </a>
+
+</section>
 
   <!-- Feedback Button -->
   <div class="fixed bottom-6 left-6">

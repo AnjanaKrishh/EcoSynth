@@ -1,5 +1,6 @@
 from django.urls import path
-from .import views
+from . import views
+
 
 urlpatterns = [
     path('',views.index,name='index'),
@@ -16,5 +17,43 @@ urlpatterns = [
     path('buy/', views.buy_view, name='buy'),
     path('sell/delete/<int:id>/', views.delete_product_view, name='delete_product'),
     path('sell/edit/<int:id>/', views.edit_product_view, name='edit_product'),
-
-]
+    path('pmregister/', views.pmregister, name='pmregister'),
+    path('pmlogin/', views.pmlogin, name='pmlogin'),
+    path('pmhome/', views.pmhome, name='pmhome'),
+    path('rmregister/', views.rmregister, name='rmregister'),
+    path('rmlogin/', views.rmlogin, name='rmlogin'),
+    path('rmhome/', views.rmhome, name='rmhome'),
+    path('adminlogin/',views.adminlogin,name='adminlogin'),
+    path('adminhome/',views.adminhome,name='adminhome'),
+    path('addproductlist/',views.addproductlist,name='addproductlist'),
+    path('addproduct/',views.addproduct,name='addproduct'),
+    path('editproduct/<int:product_id>/', views.editproduct, name='editproduct'),
+    path('deleteproduct/<int:product_id>/', views.deleteproduct, name='deleteproduct'),
+    path('product_list/', views.product_list, name='product_list'),
+    path('add-workers/', views.add_workers_option, name='add_workers_option'),
+    path('add-pickupman/', views.add_pickupman, name='add_pickupman'),
+    path('add-repairman/', views.add_repairman, name='add_repairman'),
+    path('add-delivery/', views.add_delivery, name='add_delivery'),
+    path('workers_list/', views.worker_list, name='worker_list'),
+    path('workers-list/', views.worker_list, name='worker_list'),
+    path('pickuprequests/', views.pickup_requests_view, name='pickuprequests'),
+    path('pickuprequests/', views.pickup_requests_view, name='pickuprequests'),
+    path('assign_pickupman/<int:request_id>/', views.assign_pickupman, name='assign_pickupman'),
+    path('pickup_done/<int:request_id>/', views.pickup_done, name='pickup_done'),
+    path('add_points/<int:pickup_id>/', views.add_points, name='add_points'),
+    path('add-to-cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
+    path('view-cart/', views.view_cart, name='view_cart'),
+    path('checkout/', views.checkout, name='checkout'),
+     path('',views.index,name='index'),
+    path('uregister/', views.uregister, name='uregister'),
+    path('services/',views.services,name='services'),
+    path('about/',views.about,name='about'),
+    path('contact/', views.contact, name='contact'),
+    path('map/',views.map,name='map'),
+    # path('products/', views.product_list, name='product_list'),
+    path('blogs/', views.blogs, name='blogs'),
+    path('logout/', views.logout, name='logout'),
+    path('add-deliveryman/', views.add_deliveryman, name='add_deliveryman'),
+    # path('add-workers/', views.add_workers_option, name='add_workers_option'),
+    path('forgot-password/', views.forgot_password, name='forgot_password'),
+] 
